@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <style type="text/css">
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+
+      /* Optional: Makes the sample page fill the window. */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script>
+      let map;
+      function initMap() {
+    const uluru = { lat: 10.780043081248142, lng: 106.69994515839129 };
+
+    const uluru1 = { lat: 21.02761757367215, lng: 105.83548241321816 };
+   
+
+    const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 5,
+       center: {lat: 15.8514043,lng: 102.6081569},
+    });
+    const marker = new google.maps.Marker({
+        position: uluru,
+        map: map,
+
+        animation: google.maps.Animation.DROP,
+        icon: {
+            url: "icon-buudien.png",
+            scaledSize: { width: 50, height: 50 },
+        },
+    });
+
+    const marker1 = new google.maps.Marker({
+        position: uluru1,
+        map: map,
+
+        animation: google.maps.Animation.DROP,
+        icon: {
+            url: "icon-vanmieu.png",
+            scaledSize: { width: 50, height: 50 },
+        },
+    });
+// buudien
+
+
+    var circle1 = new google.maps.Circle({
+        map: map,
+        center: new google.maps.LatLng(10.780043081248142, 106.69994515839129),
+        radius: 13000,
+        strokeColor: "red",
+
+    });
+    // tam giac chua lam đuoc 
+
+   
+
+  // van mieu
+
+    
+    var circle2 = new google.maps.Circle({
+        map: map,
+        center: new google.maps.LatLng(21.02761757367215, 105.83548241321816),
+        radius: 13000,
+        strokeColor: "red"
+    });
+
+    // tam giac chua lam duoc
+
+  
+    const directionsService = new google.maps.DirectionsService();
+    const directionsRenderer = new google.maps.DirectionsRenderer();
+    directionsRenderer.setMap(map);
+
+    var request = {
+        origin:
+            "2 Công xã Paris, Bến Nghé, Quận 1, Thành phố Hồ Chí Minh, Vietnam",
+        destination:
+            "58 Quốc Tử Giám, Văn Miếu, Đống Đa, Hà Nội 100000, Vietnam",
+        travelMode: "DRIVING",
+    };
+    directionsService.route(request, function (response, status) {
+        if (status == "OK") {
+            directionsRenderer.setDirections(response);
+        }
+    });
+
+    marker.addListener("click", () => {
+        var infowindow = new google.maps.InfoWindow({
+            content:
+                "Bưu điện trung tâm Sài Gòn là một trong những công trình kiến trúc tiêu biểu tại Thành phố Hồ Chí Minh, tọa lạc tại số 2, Công trường Công xã Paris, Quận 1. Đây là tòa nhà được người Pháp xây dựng trong khoảng năm 1886–1891 với phong cách châu Âu theo đồ án thiết kế của kiến trúc sư Villedieu cùng phụ tá Foulhoux.",
+        });
+
+        infowindow.open(map, marker);
+    });
+    marker1.addListener("click", () => {
+        var infowindow = new google.maps.InfoWindow({
+            content:
+                "Văn Miếu – Quốc Tử Giám là quần thể di tích đa dạng và phong phú hàng đầu của thủ đô Hà Nội, nằm ở phía nam Kinh thành Thăng Long. Quần thể kiến trúc Văn Miếu – Quốc Tử Giám bao gồm: hồ Văn, khu Văn Miếu – Quốc Tử Giám và vườn Giám; trong đó, kiến trúc chủ thể là Văn Miếu và Quốc Tử Giám..",
+        });
+
+        infowindow.open(map, marker1);
+    });
+}
+             </script>      
+    </head>
+    <body>
+        <div id="map"></div>
+        <div id="info"></div>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUF-I1SOAbtt5zDy8IR0uNb_wK-GRNUXo&callback=initMap&libraries=geometry&v=weekly"
+        async></script>
+</html>
